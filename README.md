@@ -1,6 +1,8 @@
 # PruebaAcerosOcotlanLaravel
 Prueba aplicada para ingreso de aceros ocotlan
 
+NOTA: Se implemento el framework Laravel con una base de datos sql server para asegurar la persistencia , todo esto en un contenedor
+
 id
 primer_apellido
 segundo_apellido
