@@ -1,0 +1,43 @@
+networks:
+  app-network-public:
+    driver: bridge
+
+volumes:
+  sql-server-data:
+    driver: local
+  sql-data:
+  sqllog:
+  sqlbackup:    
+
+services:
+  aceros-ocotlan-docker:
+    container_name: aceros-ocotlan-docker
+    networks:
+      - app-network-public
+    build: .
+    volumes:
+      - ./crud-app:/var/www/html
+    ports:
+      - 9000:80
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2019-CU3-ubuntu-18.04
+    container_name: db-aceros-ocotlan-sqlserver
+    networks:
+      - app-network-public
+    restart: always
+    env_file:
+      - sqlserver.env
+      - sapassword.env
+    ports:
+      - '1433:1433'
+    volumes:
+      - ./db-data/sql-server-data:/var/opt/mssql/
+      - ./db-data/sql-data:/var/opt/sqlserver/data
+      - ./db-data/sqllog:/var/opt/sqlserver/log
+      - ./db-data/sqlbackup:/var/opt/sqlserver/backup
+      
+
+             
+  
+  
